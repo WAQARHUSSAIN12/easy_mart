@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Link,NavLink,Routes, BrowserRouter as Router } from 'react-router-dom'  
+import { Route, Link,NavLink,Routes,Navigate, BrowserRouter as Router } from 'react-router-dom'  
 import {Helmet} from "react-helmet";
 import Header from './partial/header';
 import Footer from './partial/footer';
@@ -13,9 +13,7 @@ import Reports from './report';
 import CategoryForm from './categoryform';
 import ListCategories from "./listCategories";
 import CategoryUpdateForm from './categoryUpdateForm';
-
-export default class Admin extends Component {
-  render() {
+export default function Admin () {
     return (
       <>
       <Helmet>
@@ -75,5 +73,4 @@ export default class Admin extends Component {
       </Helmet>
     </>
     )
-  }
 }

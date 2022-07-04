@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
-export default class ProductForm extends Component {
-  render() {
-    return (
+export default function ProductForm() {
+return (
 <>       
  <div className="page-wrapper">
   {/* ============================================================== */}
@@ -91,13 +90,9 @@ export default class ProductForm extends Component {
   
     </div>
     {/* editor */}
-    
- 
+  
+    </div>
   </div>
-</div>
-
-  </>
- 
-    )
-  }
+  </> 
+  )
 }

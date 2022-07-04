@@ -1,22 +1,22 @@
 import React, { Component } from 'react'
 import axios from "axios"; 
 import { NavLink } from 'react-router-dom';
-export default class ListCategories extends Component {
 
-  state = {
-    categories: []
-  }
+export default function ListCategories(){
+  // state = {
+  //   categories: []
+  // }
 
-  componentDidMount() {
-    axios.get(`http://localhost:4111/getCategories`)
-      .then(res => {
-        const categories = res.data;
-        this.setState({ categories });
-        console.log(categories);
-      })
-  }
+  // componentDidMount() {
+  //   axios.get(`http://localhost:4111/getCategories`)
+  //     .then(res => {
+  //       const categories = res.data;
+  //       this.setState({ categories });
+  //       console.log(categories);
+  //     })
+  // }
 
-  render() {
+ 
     return (
     <> 
         {/* ============================================================== */}
@@ -69,7 +69,7 @@ export default class ListCategories extends Component {
                         </tr>
                       </thead>
                       <tbody>
-                      {
+                      {/* {
                         this.state.categories
                         .map((categories,i) =>
                           <tr key={categories.id}>
@@ -83,7 +83,7 @@ export default class ListCategories extends Component {
                             </td>
                           </tr>  
                         )
-                      }
+                      } */}
                        </tbody>
                     </table>
                   </div>
@@ -106,4 +106,3 @@ export default class ListCategories extends Component {
       </>     
     )
   }
-}

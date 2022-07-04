@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Reports extends Component {
-  render() {
+export default function Reports (){
     return (
     <>
     <h1>Report</h1>
@@ -16,4 +15,3 @@ export default class Reports extends Component {
     </>
     )
   }
-}

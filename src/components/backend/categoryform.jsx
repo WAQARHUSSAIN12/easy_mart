@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
+import { useState } from 'react';
 import axios from "axios"; 
 const Swal = require('sweetalert2')
 
-export default class CategoryForm extends Component {
-  state = {
-    name: '',
-  };
-  handleSubmit = event => {
+export default function CategoryForm(){
+
+  const [name, setName] = useState();
+ 
+ function handleSubmit(event) {
+ 
     event.preventDefault();
+
     const user = {
-      name: this.state.name
+      name: name
     }
+
+    alert(user.name);
+
     //axios.get('http://localhost:4111/createCategory', 
     axios({
       method:'post',
@@ -30,10 +36,9 @@ export default class CategoryForm extends Component {
         //window.location = "/listCategories" //This line of code will redirect you once the submission is succeed
       })
   }
-  handleChange = event =>{
-    this.setState({ name: event.target.value});
+ function handleChange(event){
+    setName({ name: event.target.value});
   }
-  render() {
     return (
         <>       
         <div className="page-wrapper">
@@ -70,13 +75,13 @@ export default class CategoryForm extends Component {
            <div className="row">
              <div className="col-md-12">
                <div className="card">
-                 <form className="form-horizontal" onSubmit = { this.handleSubmit }>
+                 <form className="form-horizontal" onSubmit = { handleSubmit }>
                    <div className="card-body">
                      <h4 className="card-title">Category Info</h4>
                      <div className="form-group row">
                        <label htmlFor="fname" className="col-sm-3 text-end control-label col-form-label">Category Name</label>
                        <div className="col-sm-9">
-                         <input type="text" className="form-control" name = "name" onChange= {this.handleChange} id="fname" placeholder="Category Name Here" />
+                         <input type="text" className="form-control" name = "name" onChange={e => setName(e.target.value)} id="fname" placeholder="Category Name Here" />
                        </div>
                      </div>
                    </div>
@@ -97,4 +102,3 @@ export default class CategoryForm extends Component {
     </>
     )
   }
-}

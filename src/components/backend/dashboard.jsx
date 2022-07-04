@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 
-export default class Dashboard extends Component {
-  render() {
-    return (
-        <>
-       
-       {/* Page wrapper  */}
+export default function Dashboard() {
+return (
+<>
+{/* Page wrapper  */}
 {/* ============================================================== */}
 <div className="page-wrapper">
   {/* ============================================================== */}
@@ -228,4 +226,3 @@ export default class Dashboard extends Component {
 </>
     )
   }
-}

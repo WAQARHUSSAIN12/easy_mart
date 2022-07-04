@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-export default class UserForm extends Component {
-  render() {
+export default function UserForm() {
     return (
       <>       
       <div className="page-wrapper">
@@ -97,5 +96,4 @@ export default class UserForm extends Component {
      
        </>
     )
-  }
 }

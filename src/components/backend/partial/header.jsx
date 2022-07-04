@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink,history,Redirect, Navigate ,Route } from 'react-router-dom'
+ 
 
-export default class Header extends Component {
-  render() {
+export default function Header  () {
+
+    // const { redirect } = this.state;
+    // if (true) {
+    //     return <Route path="/redirect" Component={ <Navigate to="/error-page" /> } />;
+        
+    // }
     return (
-    <>
+    <>   
             {/* ============================================================== */}
             {/* Topbar header - style you can find in pages.scss */}
             {/* ============================================================== */}
             <header className="topbar" data-navbarbg="skin5">
+     
                 <nav className="navbar top-navbar navbar-expand-md navbar-dark">
                 <div className="navbar-header" data-logobg="skin5">
                     {/* ============================================================== */}
@@ -251,5 +258,4 @@ export default class Header extends Component {
             {/* End Left Sidebar - style you can find in sidebar.scss  */}
             </>
     )
-  }
 }

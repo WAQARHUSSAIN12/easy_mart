@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-export default class ListOrders extends Component {
-  render() {
+export default function ListOrders () {
     return (
         <> 
         {/* ============================================================== */}
@@ -544,4 +543,3 @@ export default class ListOrders extends Component {
         </>     
     )
   }
-}

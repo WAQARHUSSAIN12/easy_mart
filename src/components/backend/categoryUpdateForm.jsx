@@ -1,37 +1,34 @@
 import React, { Component } from 'react'
 import axios from "axios"; 
+import { useState } from 'react';
 const Swal = require('sweetalert2')
 
-export default class CategoryUpdateForm extends Component {
-    
-    state = {
-        id : "" ,
-        name:"",
-        createdDate:""
-    }
-    
-    componentDidMount(){   
-        const user = {
-            id: this.state.id
-        }
-        axios({
-            method:'post',
-            url: 'http://localhost:4111/getCategory',
-            data: user,
-          }).then(res=>{
-            //console.log(res);
-            console.log(res.data);
-            if(res.data.message){
-                
-            }
-            //window.location = "/listCategories" // This line of code will redirect you once the submission is succeed
-          })
+export default function CategoryUpdateForm() {
+      
+  const [name, setName] = useState();
 
-        this.setState({ id:  window.location.href.substring(window.location.href.lastIndexOf("/") + 1)});
-       // alert(user.id);
-    }
+    // componentDidMount(){   
+    //     const user = {
+    //         id: state.id
+    //     }
+    //     axios({
+    //         method:'post',
+    //         url: 'http://localhost:4111/getCategory',
+    //         data: user,
+    //       }).then(res=>{
+    //         //console.log(res);
+    //         console.log(res.data);
+    //         if(res.data.message){
+                
+    //         }
+    //         //window.location = "/listCategories" // This line of code will redirect you once the submission is succeed
+    //       })
+
+    //     setState({ id:  window.location.href.substring(window.location.href.lastIndexOf("/") + 1)});
+    //    // alert(user.id);
+    // }
  
-      handleSubmit = event => {
+    function handleSubmit(event){
         event.preventDefault();
         const user = {
           name: this.state.name
@@ -56,11 +53,9 @@ export default class CategoryUpdateForm extends Component {
             //window.location = "/listCategories" //This line of code will redirect you once the submission is succeed
           })
       }
-      handleChange = event =>{
-        this.setState({ name: event.target.value});
-      }
-
-  render() {    
+     function handleChange(event){
+        setName({ name: event.target.value});
+      } 
     //const id  = window.location.href.substring(window.location.href.lastIndexOf("/") + 1);
     //console.log(id);
 
@@ -127,4 +122,3 @@ export default class CategoryUpdateForm extends Component {
         </> 
     )
   }
-}
