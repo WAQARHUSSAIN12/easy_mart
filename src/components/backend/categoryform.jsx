@@ -5,18 +5,13 @@ const Swal = require('sweetalert2')
 
 export default function CategoryForm(){
 
-  const [name, setName] = useState();
+const [name, setName] = useState();
  
  function handleSubmit(event) {
- 
     event.preventDefault();
-
     const user = {
       name: name
     }
-
-    alert(user.name);
-
     //axios.get('http://localhost:4111/createCategory', 
     axios({
       method:'post',

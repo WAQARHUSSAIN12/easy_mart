@@ -1,22 +1,23 @@
-import React, { Component } from 'react'
+import React, { Component,useEffect,useState } from 'react'
 import axios from "axios"; 
 import { NavLink } from 'react-router-dom';
 
 export default function ListCategories(){
-  // state = {
-  //   categories: []
-  // }
 
-  // componentDidMount() {
-  //   axios.get(`http://localhost:4111/getCategories`)
-  //     .then(res => {
-  //       const categories = res.data;
-  //       this.setState({ categories });
-  //       console.log(categories);
-  //     })
-  // }
-
+  const  [categories,getCategories] = useState([]);
  
+  useEffect(()=>{
+    getAllCategories();
+  },[]);
+
+  const getAllCategories = () => {
+      axios.get(`http://localhost:4111/getCategories`)
+      .then(res => {
+        const categories = res.data;
+        getCategories(categories)
+        console.log(categories);
+      })
+  }
     return (
     <> 
         {/* ============================================================== */}
@@ -69,21 +70,20 @@ export default function ListCategories(){
                         </tr>
                       </thead>
                       <tbody>
-                      {/* {
-                        this.state.categories
-                        .map((categories,i) =>
-                          <tr key={categories.id}>
+                      {
+                        categories.map((category,i) =>
+                          <tr key={category.id}>
                             <td> { ++i }</td>
-                            <td>{categories.name}</td>
-                            <td>{categories.createdDate}</td>
+                            <td>{category.name}</td>
+                            <td>{category.createdDate}</td>
                             <td>
-                              <NavLink to={`/admin/catedit/${categories._id}`} className="btn btn-primary"> UPDATE </NavLink> 
-                              <NavLink to={`/admin/catedelete/${categories._id}`} className="btn btn-danger"> DELETE </NavLink> 
-                              <NavLink to={`/admin/cateview/${categories._id}`} className="btn btn-info"> VIEW </NavLink>
+                              <NavLink to={`/admin/catedit/${category._id}`} className="btn btn-primary"> UPDATE </NavLink> 
+                              <NavLink to={`/admin/catedelete/${category._id}`} className="btn btn-danger"> DELETE </NavLink> 
+                              <NavLink to={`/admin/cateview/${category._id}`} className="btn btn-info"> VIEW </NavLink>
                             </td>
                           </tr>  
                         )
-                      } */}
+                      }
                        </tbody>
                     </table>
                   </div>

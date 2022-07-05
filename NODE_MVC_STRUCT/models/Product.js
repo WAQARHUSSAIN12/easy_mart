@@ -11,7 +11,7 @@ const ProductSchema = new Schema({
         required: [true, "desc can't be null"]
     },
     qty: {
-        type: String,
+        type: Number,
         required: [true, "qty can't be null"]
     },
     Price: {

@@ -65,87 +65,37 @@ const getUsers = (req,res)=>{
   UsersModel.find()
   .then(user => {
     res.send(user)
-
   })
   .catch(err => {
       res.status(500).send({ message : err.message || "Error Occurred while retriving user information" })
   })
 }
 
+// INSERT NEW USER
 const insertUser = (req,res)=>{
-
   var userDetails = new UsersModel({
-    name: "Nadeem Khan",
-    email: "nadeem@gmail.com",
-    password: "1234",
-
+    name: req.body.name,
+    email: req.body.email,
+    address: req.body.address,
+    devliveryAddress: req.body.devliveryAddress,
+    userType: req.body.userType,
+    password: req.body.password,
   });
-   
   userDetails.save((err, doc) => {
         if (!err){
           console.log('User added successfully!');
-          //req.flash('success', 'User added successfully!');
+          res.send({ message : "User added successfully"});
         }
         else{
           console.log('Error during record insertion : ' + err);
-        }
-           
-  });
-}
-
-const insertCategory = (req,res)=>{
-
-  var categoryDetails = new Category({
-    name: "Electronic",
-  });
-   
-  categoryDetails.save((err, doc) => {
-        if (!err){
-          console.log('Category added successfully!');
-          //req.flash('success', 'User added successfully!');
-        }
-        else{
-          console.log('Error during record insertion : ' + err);
+          res.send({ message : 'Error during record insertion : ' + err});
         }
   });
-}
-
-const insertProduct = (req,res)=>{
-  var productDetails = new Product({
-    name: "Infinix",
-    desc:"test Karo",
-    qty:10,
-    Price:24000,
-    photoUrl:"urlurlurl",
-    isActive:true,
-    category: ["62b417b13117ca5fc5db6b89"],
-  });
-
-  productDetails.save((err, doc) => {
-        if (!err){
-          console.log('Product added successfully!');
-          //req.flash('success', 'User added successfully!');
-        }
-        else{
-          console.log('Error during record insertion : ' + err);
-        }
-  });
-}
-
-const getProduct = (req,res)=>{
-  Product.find().populate("category","name")
-            .then(product => {
-              res.send(product)
-            })
-            .catch(err => {
-                res.status(500).send({ message : err.message || "Error Occurred while retriving user information" })
-            })
 }
 
 // Logging in Function
 const loginUser = (req, res) => {
 //   const { email, password } = req.body;
-
 //   //Required
 //   if (!email || !password) {
 //     console.log("Please fill in all the fields");
@@ -163,13 +113,6 @@ const loginUser = (req, res) => {
 };
 
 module.exports = {
-  registerView,
-  loginView,
-  registerUser,
-  loginUser,
-  getUsers,
   insertUser,
-  insertCategory,
-  insertProduct,
-  getProduct,
+  getUsers,
 };
