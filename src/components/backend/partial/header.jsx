@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { NavLink,history,Redirect, Navigate ,Route } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
  
-
 export default function Header  () {
+    const navigate = useNavigate();
+    const handleLogOut = () => {
+        localStorage.removeItem("LoginToken");
+        const  isLoggedIn =  localStorage.getItem("LoginToken");
+        if(isLoggedIn == null ){
+            navigate('/admin/login');
+        }
+    }
 
-    // const { redirect } = this.state;
-    // if (true) {
-    //     return <Route path="/redirect" Component={ <Navigate to="/error-page" /> } />;
-        
-    // }
     return (
     <>   
             {/* ============================================================== */}
@@ -68,90 +71,7 @@ export default function Header  () {
                     {/* ============================================================== */}
                     <ul className="navbar-nav float-end">
                     {/* ============================================================== */}
-         
-                    {/* ============================================================== */}
-                    {/* ============================================================== */}
-                    {/* Messages */}
-                    {/* ============================================================== */}
-                    <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle waves-effect waves-dark" href="#" id={2} role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i className="font-24 mdi mdi-comment-processing" />
-                        </a>
-                        <ul className="
-                            dropdown-menu dropdown-menu-end
-                            mailbox
-                            animated
-                            bounceInDown" aria-labelledby={2}>
-                        <ul className="list-style-none">
-                            <li>
-                            <div className>
-                                {/* Message */}
-                                <a href="javascript:void(0)" className="link border-top">
-                                <div className="d-flex no-block align-items-center p-10">
-                                    <span className="
-                                        btn btn-success btn-circle
-                                        d-flex
-                                        align-items-center
-                                        justify-content-center
-                                    "><i className="mdi mdi-calendar text-white fs-4" /></span>
-                                    <div className="ms-2">
-                                    <h5 className="mb-0">Event today</h5>
-                                    <span className="mail-desc">Just a reminder that event</span>
-                                    </div>
-                                </div>
-                                </a>
-                                {/* Message */}
-                                <a href="javascript:void(0)" className="link border-top">
-                                <div className="d-flex no-block align-items-center p-10">
-                                    <span className="
-                                        btn btn-info btn-circle
-                                        d-flex
-                                        align-items-center
-                                        justify-content-center
-                                    "><i className="mdi mdi-settings fs-4" /></span>
-                                    <div className="ms-2">
-                                    <h5 className="mb-0">Settings</h5>
-                                    <span className="mail-desc">You can customize this template</span>
-                                    </div>
-                                </div>
-                                </a>
-                                {/* Message */}
-                                <a href="javascript:void(0)" className="link border-top">
-                                <div className="d-flex no-block align-items-center p-10">
-                                    <span className="
-                                        btn btn-primary btn-circle
-                                        d-flex
-                                        align-items-center
-                                        justify-content-center
-                                    "><i className="mdi mdi-account fs-4" /></span>
-                                    <div className="ms-2">
-                                    <h5 className="mb-0">Pavan kumar</h5>
-                                    <span className="mail-desc">Just see the my admin!</span>
-                                    </div>
-                                </div>
-                                </a>
-                                {/* Message */}
-                                <a href="javascript:void(0)" className="link border-top">
-                                <div className="d-flex no-block align-items-center p-10">
-                                    <span className="
-                                        btn btn-danger btn-circle
-                                        d-flex
-                                        align-items-center
-                                        justify-content-center
-                                    "><i className="mdi mdi-link fs-4" /></span>
-                                    <div className="ms-2">
-                                    <h5 className="mb-0">Luanch Admin</h5>
-                                    <span className="mail-desc">Just see the my new admin!</span>
-                                    </div>
-                                </div>
-                                </a>
-                            </div>
-                            </li>
-                        </ul>
-                        </ul>
-                    </li>
-                    {/* ============================================================== */}
-                    {/* End Messages */}
+      
                     {/* ============================================================== */}
                     {/* ============================================================== */}
                     {/* User profile and search */}
@@ -167,15 +87,14 @@ export default function Header  () {
                         <img src="../../../admin/assets/images/users/1.jpg" alt="user" className="rounded-circle" width={31} />
                         </a>
                         <ul className="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
-                        <a className="dropdown-item" href="javascript:void(0)"><i className="mdi mdi-account me-1 ms-1" /> My Profile</a>
-                        <a className="dropdown-item" href="javascript:void(0)"><i className="mdi mdi-wallet me-1 ms-1" /> My Balance</a>
-                        <a className="dropdown-item" href="javascript:void(0)"><i className="mdi mdi-email me-1 ms-1" /> Inbox</a>
                         <div className="dropdown-divider" />
-                        <a className="dropdown-item" href="javascript:void(0)"><i className="mdi mdi-settings me-1 ms-1" /> Account
-                            Setting</a>
+                         
                         <div className="dropdown-divider" />
-                        <a className="dropdown-item" href="javascript:void(0)"><i className="fa fa-power-off me-1 ms-1" /> Logout</a>
+                        <div className="ps-4 p-10">
+                            <button onClick={handleLogOut} className="btn btn-sm btn-warning btn-rounded text-white">Logout</button>
+                        </div>
                         <div className="dropdown-divider" />
+                       
                         <div className="ps-4 p-10">
                             <a href="javascript:void(0)" className="btn btn-sm btn-success btn-rounded text-white">View Profile</a>
                         </div>

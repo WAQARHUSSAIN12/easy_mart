@@ -13,6 +13,7 @@ const {
 const {
   insertUser,
   getUsers,
+  loginUser,
 } = require("../controllers/UserController");
 
 const { dashboardView } = require("../controllers/DashboardController");
@@ -33,6 +34,7 @@ router.get("/getProduct",getProduct);
 
 router.get("/getUsers",getUsers);
 router.post("/createUser",insertUser);
+router.post("/login", loginUser);
 
 // Dashboard
 // router.get("/dashboard", dashboardView);

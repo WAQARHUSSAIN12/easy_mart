@@ -56,11 +56,7 @@ const registerUser = (req, res) => {
 //   }
 };
 
-// For View
-const loginView = (req, res) => {
-  res.render("frontend/login", {});
-};
-
+ 
 const getUsers = (req,res)=>{
   UsersModel.find()
   .then(user => {
@@ -95,24 +91,23 @@ const insertUser = (req,res)=>{
 
 // Logging in Function
 const loginUser = (req, res) => {
-//   const { email, password } = req.body;
-//   //Required
-//   if (!email || !password) {
-//     console.log("Please fill in all the fields");
-//     res.render("login", {
-//       email,
-//       password,
-//     });
-//   } else {
-//     passport.authenticate("local", {
-//       successRedirect: "/dashboard",
-//       failureRedirect: "/login",
-//       failureFlash: true,
-//     })(req, res);
-//   }
+  const { email, password } = req.body;
+  UsersModel.find({$and: [{email: email},
+  {password: password}]})
+  .then(user => {
+    res.send(user);
+    console.log(user);
+  })
+  .catch(err => {
+      res.status(500).send({ message : err.message || "Error Occurred while retriving user information" });
+  })
+  
+  console.log(req.body);
+  
 };
 
 module.exports = {
   insertUser,
   getUsers,
+  loginUser,
 };

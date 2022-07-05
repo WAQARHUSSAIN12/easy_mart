@@ -20,7 +20,7 @@ export default function UserForm() {
       userType:userType,
       password:password
     }
-    alert(user.name + " " + user.email + " " + user.address + " " + user.devliveryAddress + " " + user.userType + " " + password);
+    //alert(user.name + " " + user.email + " " + user.address + " " + user.devliveryAddress + " " + user.userType + " " + password);
     //axios.get('http://localhost:4111/createCategory', 
     axios({
       method:'post',
