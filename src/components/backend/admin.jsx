@@ -14,7 +14,9 @@ import Reports from './report';
 import CategoryForm from './categoryform';
 import ListCategories from "./listCategories";
 import CategoryUpdateForm from './categoryUpdateForm';
+import ProductUpdateForm from './productUpdateForm';
 import Login from './login';
+import UserUpdateForm from './userUpdateForm';
 export default function Admin () {
 
     const navigate = useNavigate();
@@ -107,7 +109,13 @@ export default function Admin () {
                 <Route path="/listUsers" element={<ListUsers />} />
                 <Route path="/listOrders" element={<ListOrders />} />
                 <Route path="/report" element={<Reports />} />
-                <Route path="/catedit/:id" element={<CategoryUpdateForm  />} />                 
+                <Route path="/catedit/:id" element={<CategoryUpdateForm  />} />  
+                <Route path="/proedit/:id" element={<ProductUpdateForm  />} />  
+                <Route path="/useredit/:id" element={<UserUpdateForm  />} />
+                      <Route
+                            path="*"
+                            element={<Navigate to="/admin/dashboard" replace />}
+                        />             
             </Routes>
         <Footer /> 
       </div>

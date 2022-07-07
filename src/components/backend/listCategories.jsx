@@ -1,6 +1,7 @@
 import React, { Component,useEffect,useState } from 'react'
 import axios from "axios"; 
 import { NavLink } from 'react-router-dom';
+const Swal = require('sweetalert2');
 
 export default function ListCategories(){
 
@@ -10,15 +11,61 @@ export default function ListCategories(){
     getAllCategories();
   },[]);
 
+
+// GET ALL CATEGORIES REQUEST
   const getAllCategories = () => {
       axios.get(`http://localhost:4111/getCategories`)
       .then(res => {
         const categories = res.data;
         getCategories(categories)
-        console.log(categories);
       })
   }
-    return (
+
+// DELETE BY ID ALERT
+const deleteCategory = (e) => {
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert Category!",
+
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          deleteById(e.target.value);
+        }else{
+
+        }
+    });
+
+}
+// DELETE BY ID REQUEST
+const deleteById = (id) => {
+
+    const cateData = {
+      cateid: id,
+    }
+
+    axios({
+      method: 'post',
+      url: 'http://localhost:4111/deleteCategory',
+      data: cateData,
+    })
+      .then(res => {
+        if(res.data.message){
+          Swal.fire(
+            'Success',
+            'Category deleted successfully' ,
+            'success'
+          );
+          getAllCategories();
+        }
+      })
+}
+
+ return (
     <> 
         {/* ============================================================== */}
       {/* Page wrapper  */}
@@ -78,8 +125,7 @@ export default function ListCategories(){
                             <td>{category.createdDate}</td>
                             <td>
                               <NavLink to={`/admin/catedit/${category._id}`} className="btn btn-primary"> UPDATE </NavLink> 
-                              <NavLink to={`/admin/catedelete/${category._id}`} className="btn btn-danger"> DELETE </NavLink> 
-                              <NavLink to={`/admin/cateview/${category._id}`} className="btn btn-info"> VIEW </NavLink>
+                              <button  value={category._id} onClick={deleteCategory} className="btn btn-danger"> DELETE </button> 
                             </td>
                           </tr>  
                         )
@@ -105,4 +151,4 @@ export default function ListCategories(){
       </div>
       </>     
     )
-  }
+}

@@ -2,61 +2,8 @@ const mongoose = require('mongoose');
 const UsersModel = require("../models/User");
 const Category = require("../models/Category");
 const Product = require("../models/Product");
-//For Register Page
-const registerView = (req, res) => {
-  res.render("frontend/register", {});
-};
 
-//Post Request for Register
-
-const registerUser = (req, res) => {
-//   const { name, email, location, password, confirm } = req.body;
-
-//   if (!name || !email || !password || !confirm) {
-//     console.log("Fill empty fields");
-//   }
-
-//   //Confirm Passwords
-
-//   if (password !== confirm) {
-//     console.log("Password must match");
-//   } else {
-//     //Validation
-//     User.findOne({ email: email }).then((user) => {
-//       if (user) {
-//         console.log("email exists");
-//         res.render("register", {
-//           name,
-//           email,
-//           password,
-//           confirm,
-//         });
-//       } else {
-//         //Validation
-//         const newUser = new User({
-//           name,
-//           email,
-//           location,
-//           password,
-//         });
-//         //Password Hashing
-//         bcrypt.genSalt(10, (err, salt) =>
-//           bcrypt.hash(newUser.password, salt, (err, hash) => {
-//             if (err) throw err;
-
-//             newUser.password = hash;
-//             newUser
-//               .save()
-//               .then(res.redirect("/login"))
-//               .catch((err) => console.log(err));
-//           })
-//         );
-//       }
-//     });
-//   }
-};
-
- 
+// GET ALL USER FUNCTION
 const getUsers = (req,res)=>{
   UsersModel.find()
   .then(user => {
@@ -79,13 +26,46 @@ const insertUser = (req,res)=>{
   });
   userDetails.save((err, doc) => {
         if (!err){
-          console.log('User added successfully!');
           res.send({ message : "User added successfully"});
         }
         else{
-          console.log('Error during record insertion : ' + err);
           res.send({ message : 'Error during record insertion : ' + err});
         }
+  });
+}
+
+// UPDATE USER FUNCTION
+const updateUser = (req,res)=>{
+
+const id = req.body.id;
+const data = {
+  name: req.body.name,
+  email: req.body.email,
+  address: req.body.address,
+  devliveryAddress: req.body.devliveryAddress,
+  userType: req.body.userType,
+}
+UsersModel.findByIdAndUpdate({_id:id},data, function(err, result){
+
+  if(err){
+      res.send({ message : 'Error during record Update : ' + err});
+    }
+    else{
+      res.send({ message : "User Updated successfully"});
+    }
+  });
+}
+
+// DELETE USER BY ID FUNCTION
+const deleteUser = (req,res) =>{
+  const id = req.body.userId;
+  UsersModel.deleteOne({_id:id}, function(err, result){
+    if(err){
+      res.send({ message : 'Error during record deletion : ' + err});
+    }
+    else{
+      res.send({ message : "User deleted successfully"});
+    }
   });
 }
 
@@ -96,18 +76,28 @@ const loginUser = (req, res) => {
   {password: password}]})
   .then(user => {
     res.send(user);
-    console.log(user);
+  })
+  .catch(err => {
+      res.status(500).send({ message : err.message || "Error Occurred while retriving user information" });
+  })  
+};
+
+// GET A SINGLE USER WITH ID FUNCTION
+const getUser = (req, res) => {
+  UsersModel.findOne({_id: req.body.userId})
+  .then(user => {
+    res.send(user);
   })
   .catch(err => {
       res.status(500).send({ message : err.message || "Error Occurred while retriving user information" });
   })
-  
-  console.log(req.body);
-  
-};
+}
 
 module.exports = {
   insertUser,
   getUsers,
+  getUser,
+  updateUser,
+  deleteUser,
   loginUser,
 };

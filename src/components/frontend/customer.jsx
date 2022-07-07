@@ -48,8 +48,7 @@ export default class Customer extends Component {
             <Header />
          
               <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/product" element={<Product />} />
+                  <Route path="/" element={<Product />} />
                   <Route path="/contact" element={<Contact />} />
               </Routes>
 

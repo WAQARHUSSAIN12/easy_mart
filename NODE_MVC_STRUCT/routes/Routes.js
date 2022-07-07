@@ -1,45 +1,57 @@
 const express = require("express");
+const multer = require('multer');
+// All Controller Intialization
 const {
   insertCategory,
   getCategories,
   getCategory,
+  updateCategory,
+  deleteCategory,
 } = require("../controllers/CategoryController");
 
 const {
   insertProduct,
+  getProducts,
   getProduct,
+  updateProduct,
+  uploadProductImage,
+  deleteProduct,
 } = require("../controllers/ProductController");
 
 const {
   insertUser,
   getUsers,
+  getUser,
+  updateUser,
+  deleteUser,
   loginUser,
 } = require("../controllers/UserController");
 
-const { dashboardView } = require("../controllers/DashboardController");
-// const { protectRoute } = require("../auth/protect");
 const router = express.Router();
 
-// router.get("/",getUsers);
-// router.get("/createUser",insertUser);
-// router.get("/register", registerView);
-// router.get("/login", loginView);
-
+// Routes For Category
 router.post("/createCategory",insertCategory); 
 router.get("/getCategories",getCategories); 
 router.post("/getCategory",getCategory); 
+router.post("/updateCategory",updateCategory); 
+router.post("/deleteCategory",deleteCategory);
 
-router.post("/createProduct",insertProduct); 
-router.get("/getProduct",getProduct);
 
+//Routes For Product
+const type = uploadProductImage();
+router.post("/createProduct",type,insertProduct); 
+router.get("/getProducts",getProducts);
+router.post("/getProduct",getProduct);
+router.post("/updateProduct",type,updateProduct);
+router.post("/deleteProduct",deleteProduct);   
+
+// Routes For Users
 router.get("/getUsers",getUsers);
 router.post("/createUser",insertUser);
+router.post("/getUser",getUser);
+router.post("/updateUser",updateUser);
+router.post("/deleteUser",deleteUser);
 router.post("/login", loginUser);
 
-// Dashboard
-// router.get("/dashboard", dashboardView);
-// //post route 
-// router.post("/register", registerUser);
-// router.post("/login", loginUser);
 
 module.exports = router;

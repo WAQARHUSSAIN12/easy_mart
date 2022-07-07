@@ -1,11 +1,10 @@
 import React, { Component,useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"; 
+const Swal = require('sweetalert2')
 export default function Login() {
     let isLoggedIn;
     const navigate = useNavigate();
-
-    const [count, setCount] = useState("");
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -13,6 +12,7 @@ export default function Login() {
     function handleSubmit(event) {
 
         event.preventDefault();
+
         const user = {
             email: email,
             password:password
@@ -24,16 +24,21 @@ export default function Login() {
             data: user,
         })
         .then(res=>{
-        if(res.data){
+        if(res.data[0] != null){
+             
             localStorage.setItem('LoginToken', true);
            // localStorage.setItem('name',res.data[0].name);
             isLoggedIn =  localStorage.getItem("LoginToken"); 
             if (isLoggedIn) {
                 navigate("/admin/dashboard");
-            }else{
-                alert("TEST");
-            }  
-        }
+            }
+        }else{
+          Swal.fire(
+            'Alert',
+            'User not found with these credentials please enter correct email and password' ,
+            'error'
+          );
+        }  
         // window.location = "/listCategories" //This line of code will redirect you once the submission is succeed
         })
     }

@@ -13,8 +13,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 dotenv.config();
+
+app.use("/public",express.static("public"));
+//Serves all the request which includes /images in the url from Images folder
 connectDB();
-//BodyParsing
+// BodyParsing
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
     secret:'oneboy',

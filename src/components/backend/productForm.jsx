@@ -9,26 +9,29 @@ export default function ProductForm() {
   const [qty, setqty] = useState();
   const [price, setPrice] = useState();
   const [category, setCategory] = useState();
+  const [selectedFile, setselectedFile] = useState();
 
   function handleSubmit(event) {
     event.preventDefault();
-    const product = {
-      productName: productName,
-      productDesc: productDesc,
-      qty:qty,
-      price:price,
-      category:category
+    const product = new FormData();
+    product.append('productName',  productName);
+    product.append('productDesc',  productDesc);
+    product.append('qty',  qty);
+    product.append('price',  price);
+    product.append('category',  category);
+    product.append('file',  selectedFile);
+    // alert(product.productName + " " + product.productDesc + " " + product.qty + " " + product.price + " " + product.category);
+    console.log(product);
+    for (var key of product.entries()) {
+      console.log(key[0] + ', ' + key[1]);
     }
-    //alert(product.productName + " " + product.productDesc + " " + product.qty + " " + product.price + " " + product.category);
-    //axios.get('http://localhost:4111/createCategory', 
+
     axios({
       method:'post',
       url: 'http://localhost:4111/createProduct',
       data: product,
     })
       .then(res=>{
-        console.log(res);
-        console.log(res.data);
         if(res.data.message){
           Swal.fire(
             'Success',
@@ -52,9 +55,13 @@ export default function ProductForm() {
       .then(res => {
         const categories = res.data;
         getCategories(categories)
-        console.log(categories);
       })
   }
+
+const onChangeHandler = (event) => {
+    setselectedFile(event.target.files[0]);
+    console.log(event.target.files[0]);
+}
 
 return (
 <>       
@@ -92,7 +99,7 @@ return (
     <div className="row">
       <div className="col-md-12">
         <div className="card">
-          <form  onSubmit = { handleSubmit } className="form-horizontal">
+          <form  onSubmit = { handleSubmit } className="form-horizontal" encType="multipart/form-data">
             <div className="card-body">
               <h4 className="card-title">Product Info</h4>
               <div className="form-group row">
@@ -136,7 +143,7 @@ return (
               <div className="form-group row">
                 <label htmlFor="cono1" className="col-sm-3 text-end control-label col-form-label">Image</label>
                 <div className="col-sm-9">
-                  <input type="file" className="form-control" name="file" id="cono1" placeholder="select file here" />
+                  <input type="file" className="form-control" name="file" onChange={onChangeHandler} id="cono1" placeholder="select file here" />
                 </div>
               </div>
               {/* <div className="form-group row">
@@ -156,7 +163,6 @@ return (
           </form>
         </div>
       </div>
-  
     </div>
     {/* editor */}
   

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 
-export default class Contact extends Component {
-  render() {
-    return (
+export default function Contact(){
+return (
 <div>
   {/* Breadcrumbs */}
   <div className="breadcrumbs">
@@ -131,7 +130,5 @@ export default class Contact extends Component {
     </div>
   </section>
 </div>
-
-    )
-  }
+)
 }

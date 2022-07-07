@@ -38,13 +38,24 @@ return (
     {/* ============================================================== */}
     <div className="row">
       {/* Column */}
-      <div className="col-md-6 col-lg-2 col-xlg-3">
+      <div className="col-md-6 col-lg-4 col-xlg-3">
+        <div className="card card-hover">
+          <div className="box bg-info text-center">
+            <h1 className="font-light text-white">
+               66
+            </h1>
+            <h6 className="text-white">Total Customer</h6>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-md-6 col-lg-4 col-xlg-3">
         <div className="card card-hover">
           <div className="box bg-cyan text-center">
             <h1 className="font-light text-white">
-              <i className="mdi mdi-view-dashboard" />
+               9
             </h1>
-            <h6 className="text-white">Dashboard</h6>
+            <h6 className="text-white">Total Categories</h6>
           </div>
         </div>
       </div>
@@ -53,102 +64,53 @@ return (
         <div className="card card-hover">
           <div className="box bg-success text-center">
             <h1 className="font-light text-white">
-              <i className="mdi mdi-chart-areaspline" />
+               200
             </h1>
-            <h6 className="text-white">Charts</h6>
+            <h6 className="text-white">Total Products </h6>
           </div>
         </div>
       </div>
       {/* Column */}
-      <div className="col-md-6 col-lg-2 col-xlg-3">
-        <div className="card card-hover">
-          <div className="box bg-warning text-center">
-            <h1 className="font-light text-white">
-              <i className="mdi mdi-collage" />
-            </h1>
-            <h6 className="text-white">Widgets</h6>
-          </div>
-        </div>
-      </div>
+
       {/* Column */}
-      <div className="col-md-6 col-lg-2 col-xlg-3">
-        <div className="card card-hover">
-          <div className="box bg-danger text-center">
-            <h1 className="font-light text-white">
-              <i className="mdi mdi-border-outside" />
-            </h1>
-            <h6 className="text-white">Tables</h6>
-          </div>
-        </div>
-      </div>
-      {/* Column */}
-      <div className="col-md-6 col-lg-2 col-xlg-3">
-        <div className="card card-hover">
-          <div className="box bg-info text-center">
-            <h1 className="font-light text-white">
-              <i className="mdi mdi-arrow-all" />
-            </h1>
-            <h6 className="text-white">Full Width</h6>
-          </div>
-        </div>
-      </div>
-      {/* Column */}
-      {/* Column */}
-      <div className="col-md-6 col-lg-4 col-xlg-3">
-        <div className="card card-hover">
-          <div className="box bg-danger text-center">
-            <h1 className="font-light text-white">
-              <i className="mdi mdi-receipt" />
-            </h1>
-            <h6 className="text-white">Forms</h6>
-          </div>
-        </div>
-      </div>
-      {/* Column */}
-      <div className="col-md-6 col-lg-2 col-xlg-3">
-        <div className="card card-hover">
-          <div className="box bg-info text-center">
-            <h1 className="font-light text-white">
-              <i className="mdi mdi-relative-scale" />
-            </h1>
-            <h6 className="text-white">Buttons</h6>
-          </div>
-        </div>
-      </div>
-      {/* Column */}
-      <div className="col-md-6 col-lg-2 col-xlg-3">
+       <div className="col-md-6 col-lg-4 col-xlg-3">
         <div className="card card-hover">
           <div className="box bg-cyan text-center">
             <h1 className="font-light text-white">
-              <i className="mdi mdi-pencil" />
+               1000
             </h1>
-            <h6 className="text-white">Elements</h6>
+            <h6 className="text-white">Total Orders </h6>
           </div>
         </div>
       </div>
       {/* Column */}
-      <div className="col-md-6 col-lg-2 col-xlg-3">
+
+      {/* Column */}
+      <div className="col-md-6 col-lg-4 col-xlg-3">
         <div className="card card-hover">
           <div className="box bg-success text-center">
             <h1 className="font-light text-white">
-              <i className="mdi mdi-calendar-check" />
+              800
             </h1>
-            <h6 className="text-white">Calnedar</h6>
+            <h6 className="text-white">Orders Complete </h6>
           </div>
         </div>
       </div>
       {/* Column */}
-      <div className="col-md-6 col-lg-2 col-xlg-3">
+
+       {/* Column */}
+       <div className="col-md-6 col-lg-4 col-xlg-3">
         <div className="card card-hover">
-          <div className="box bg-warning text-center">
+          <div className="box bg-danger text-center">
             <h1 className="font-light text-white">
-              <i className="mdi mdi-alert" />
+              200
             </h1>
-            <h6 className="text-white">Errors</h6>
+            <h6 className="text-white">Orders Pendings</h6>
           </div>
         </div>
       </div>
       {/* Column */}
+    
     </div>
     {/* ============================================================== */}
     {/* Sales chart */}
@@ -166,34 +128,34 @@ return (
         {/* card */}
         <div className="card">
           <div className="card-body">
-            <h4 className="card-title mb-0">Progress Box</h4>
+            <h4 className="card-title mb-0">Order Status</h4>
             <div className="mt-3">
               <div className="d-flex no-block align-items-center">
-                <span>81% Clicks</span>
+                <span>20% Order Pendings</span>
                 <div className="ms-auto">
-                  <span>125</span>
+                  <span>200</span>
                 </div>
               </div>
               <div className="progress">
-                <div className="progress-bar progress-bar-striped" role="progressbar" style={{width: '81%'}} aria-valuenow={10} aria-valuemin={0} aria-valuemax={100} />
+                <div className="progress-bar progress-bar-striped" role="progressbar" style={{width: '20%'}} aria-valuenow={10} aria-valuemin={0} aria-valuemax={100} />
               </div>
             </div>
             <div>
               <div className="d-flex no-block align-items-center mt-4">
-                <span>72% Uniquie Clicks</span>
+                <span>70% Order Completed</span>
                 <div className="ms-auto">
-                  <span>120</span>
+                  <span>800</span>
                 </div>
               </div>
               <div className="progress">
-                <div className="progress-bar progress-bar-striped bg-success" role="progressbar" style={{width: '72%'}} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100} />
+                <div className="progress-bar progress-bar-striped bg-success" role="progressbar" style={{width: '70%'}} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100} />
               </div>
             </div>
             <div>
               <div className="d-flex no-block align-items-center mt-4">
-                <span>53% Impressions</span>
+                <span>10% Order Canceled</span>
                 <div className="ms-auto">
-                  <span>785</span>
+                  <span>100</span>
                 </div>
               </div>
               <div className="progress">

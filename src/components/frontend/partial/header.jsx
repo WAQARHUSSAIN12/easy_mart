@@ -13,7 +13,7 @@ export default class Header extends Component {
                 <div className="top-left">
                     <ul className="list-main">
                     <li><i className="ti-headphone-alt" /> +060 (800) 801-582</li>
-                    <li><i className="ti-email" /> support@shophub.com</li>
+                    <li><i className="ti-email" /> support@easymart.com</li>
                     </ul>
                 </div>
                 {/*/ End Top Left */}
@@ -22,10 +22,10 @@ export default class Header extends Component {
                 {/* Top Right */}
                 <div className="right-content">
                     <ul className="list-main">
-                    <li><i className="ti-location-pin"  /> Store location</li>
-                    <li><i className="ti-alarm-clock" /> <a href="#">Daily deal</a></li>
-                    <li><i className="ti-user" /> <a href="#">My account</a></li>
-                    <li><i className="ti-power-off" /><a href="login.html#">Login</a></li>
+                        <li><i className="ti-location-pin"  /> Store location</li>
+                        <li><i className="ti-alarm-clock" /> <a href="#">Daily deal</a></li>
+                        <li><i className="ti-user" /> <a href="#">My account</a></li>
+                        <li><i className="ti-power-off" /><a href="login.html#">Login</a></li>
                     </ul>
                 </div>
                 {/* End Top Right */}
@@ -59,30 +59,12 @@ export default class Header extends Component {
                 <div className="mobile-nav" />
                 </div>
                 <div className="col-lg-8 col-md-7 col-12">
-                <div className="search-bar-top">
-                    <div className="search-bar">
-                    <select>
-                        <option selected="selected">All Category</option>
-                        <option>watch</option>
-                        <option>mobile</option>
-                        <option>kid’s item</option>
-                    </select>
-                    <form>
-                        <input name="search" placeholder="Search Products Here....." type="search" />
-                        <button className="btnn"><i className="ti-search" /></button>
-                    </form>
-                    </div>
-                </div>
+          
                 </div>
                 <div className="col-lg-2 col-md-3 col-12">
                 <div className="right-bar">
                     {/* Search Form */}
-                    <div className="sinlge-bar">
-                    <a href="#" className="single-icon"><i className="fa fa-heart-o" aria-hidden="true" /></a>
-                    </div>
-                    <div className="sinlge-bar">
-                    <a href="#" className="single-icon"><i className="fa fa-user-circle-o" aria-hidden="true" /></a>
-                    </div>
+               
                     <div className="sinlge-bar shopping">
                     <a href="#" className="single-icon"><i className="ti-bag" /> <span className="total-count">2</span></a>
                     {/* Shopping Item */}
@@ -133,9 +115,8 @@ export default class Header extends Component {
                         <div className="nav-inner">	
                             <ul className="nav main-menu menu navbar-nav">
                             <li className="active">
-                                <NavLink to="/" > Home </NavLink>
-                            </li>
-                            <li><NavLink to="/product"> Product </NavLink></li>												
+                            <NavLink to="/" > Home </NavLink>
+                            </li>											
                             <li><NavLink to="/contact"> Contact </NavLink></li>	
                             </ul>
                         </div>

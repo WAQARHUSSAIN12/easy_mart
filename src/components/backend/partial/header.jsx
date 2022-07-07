@@ -120,7 +120,7 @@ export default function Header  () {
                 <nav className="sidebar-nav">
                     <ul id="sidebarnav" className="pt-4">
                     <li className="sidebar-item">
-                        <NavLink className="sidebar-link waves-effect waves-dark sidebar-link"  to="/admin" aria-expanded="false"><i className="mdi mdi-view-dashboard" /><span className="hide-menu">Dashboard</span></NavLink>
+                        <NavLink className="sidebar-link waves-effect waves-dark sidebar-link"  to="/admin/dashboard" aria-expanded="false"><i className="mdi mdi-view-dashboard" /><span className="hide-menu">Dashboard</span></NavLink>
                     </li>
                     <li className="sidebar-item">
                         <a className="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i className="mdi mdi-receipt" /><span className="hide-menu">Products Management </span></a>

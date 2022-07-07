@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { useState } from 'react';
 import axios from "axios"; 
-const Swal = require('sweetalert2')
+const Swal = require('sweetalert2');
 
 export default function CategoryForm(){
   
@@ -18,7 +18,7 @@ const [name, setName] = useState();
       url: 'http://localhost:4111/createCategory',
       data: user,
     })
-      .then(res=>{
+    .then(res=>{
         console.log(res);
         console.log(res.data);
         if(res.data.message){
@@ -28,8 +28,8 @@ const [name, setName] = useState();
             'success'
           );
         }
-        //window.location = "/listCategories" //This line of code will redirect you once the submission is succeed
-      })
+    })
+    
   }
  function handleChange(event){
     setName({ name: event.target.value});

@@ -1,23 +1,66 @@
 import React, { Component,useEffect,useState } from 'react'
 import axios from "axios"; 
 import { NavLink } from 'react-router-dom';
+const Swal = require('sweetalert2');
 
 export default function ListUsers() {
 
   const  [users,getUsers] = useState([]);
  
   useEffect(()=>{
-    getAllProducts();
+    getAllUsers();
   },[]);
 
-  const getAllProducts = () => {
+  const getAllUsers = () => {
       axios.get(`http://localhost:4111/getUsers`)
       .then(res => {
         const users = res.data;
         getUsers(users)
-        console.log(users);
       })
   }
+
+// DELETE PRODUCT BY ID ALERT
+const deleteUser = (e) => {
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this User!",
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      deleteUserById(e.target.value);
+    }else{
+
+    }
+});
+
+}
+// DELETE User BY ID REQUEST
+const deleteUserById = (id) => {
+
+const userData = {
+  userId: id,
+}
+
+axios({
+  method: 'post',
+  url: 'http://localhost:4111/deleteUser',
+  data: userData,
+})
+  .then(res => {
+    if(res.data.message){
+      Swal.fire(
+        'Success',
+        'User deleted successfully' ,
+        'success'
+      );
+      getAllUsers();
+    }
+  })
+}
     return (
     <>
       {/* ============================================================== */}
@@ -85,22 +128,18 @@ export default function ListUsers() {
                       <td>{user.userType ? user.userType :"" }</td>
                       <td>{user.createdDate}</td>
                       <td>
-                        <NavLink to={`/admin/prodit/${user._id}`} className="btn btn-primary"> UPDATE </NavLink> 
-                        <NavLink to={`/admin/prodelete/${user._id}`} className="btn btn-danger"> DELETE </NavLink> 
-                        <NavLink to={`/admin/proview/${user._id}`} className="btn btn-info"> VIEW </NavLink>
-                      </td>
+                        <NavLink to={`/admin/useredit/${user._id}`} className="btn btn-primary"> UPDATE </NavLink> 
+                        <button value={user._id} onClick={deleteUser}  className="btn btn-danger"> DELETE </button>                       </td>
                     </tr>  
                     )
                   }
-                      </tbody>
-                         
-                      
-                    </table>
-                  </div>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
+        </div>
           {/* ============================================================== */}
           {/* End PAge Content */}
           {/* ============================================================== */}

@@ -1,6 +1,7 @@
 import React, { Component,useEffect,useState } from 'react'
 import axios from "axios"; 
 import { NavLink } from 'react-router-dom';
+const Swal = require('sweetalert2');
 
 export default function ListProducts() {
 
@@ -11,7 +12,7 @@ export default function ListProducts() {
   },[]);
 
   const getAllProducts = () => {
-      axios.get(`http://localhost:4111/getProduct`)
+      axios.get(`http://localhost:4111/getProducts`)
       .then(res => {
         const products = res.data;
         getProducts(products)
@@ -19,8 +20,51 @@ export default function ListProducts() {
       })
   }
 
-    return (
-    <> 
+// DELETE PRODUCT BY ID ALERT
+const deleteProduct = (e) => {
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this Product!",
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      deleteProductById(e.target.value);
+    }else{
+
+    }
+});
+
+}
+// DELETE PRODUCT BY ID REQUEST
+const deleteProductById = (id) => {
+
+const productData = {
+  productId: id,
+}
+
+axios({
+  method: 'post',
+  url: 'http://localhost:4111/deleteProduct',
+  data: productData,
+})
+  .then(res => {
+    if(res.data.message){
+      Swal.fire(
+        'Success',
+        'Product deleted successfully' ,
+        'success'
+      );
+      getAllProducts();
+    }
+  })
+}
+  
+return (
+<> 
   {/* ============================================================== */}
 {/* Page wrapper  */}
 {/* ============================================================== */}
@@ -37,7 +81,7 @@ export default function ListProducts() {
             <ol className="breadcrumb">
               <li className="breadcrumb-item"><a href="#">Home</a></li>
               <li className="breadcrumb-item active" aria-current="page">
-                Library
+                Product
               </li>
             </ol>
           </nav>
@@ -83,13 +127,11 @@ export default function ListProducts() {
                       <td>{product.desc}</td>
                       <td>{product.qty}</td>
                       <td>{product.Price}</td>
-                      <td>{product.category ? product.category[0].name :"" }</td>
+                      <td>{product.category ? product.category[0].name : "" }</td>
                       <td>{product.createdDate}</td>
-
                       <td>
-                        <NavLink to={`/admin/prodit/${product._id}`} className="btn btn-primary"> UPDATE </NavLink> 
-                        <NavLink to={`/admin/prodelete/${product._id}`} className="btn btn-danger"> DELETE </NavLink> 
-                        <NavLink to={`/admin/proview/${product._id}`} className="btn btn-info"> VIEW </NavLink>
+                        <NavLink to={`/admin/proedit/${product._id}`} className="btn btn-primary"> UPDATE </NavLink> 
+                        <button value={product._id} onClick={deleteProduct}  className="btn btn-danger"> DELETE </button> 
                       </td>
                     </tr>  
                     )
@@ -115,4 +157,4 @@ export default function ListProducts() {
 </div>
 </>     
     )
-  }
+}
