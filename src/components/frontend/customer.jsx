@@ -5,7 +5,10 @@ import Home from './home'
 import Footer from './partial/footer'
 import Header from './partial/header'
 import Product from './product'
+import Viewcart from './viewcart'
 import {Helmet} from "react-helmet";
+
+
 
 export default class Customer extends Component {
   render() {
@@ -49,6 +52,7 @@ export default class Customer extends Component {
          
               <Routes>
                   <Route path="/" element={<Product />} />
+                  <Route path="/viewcart" element={<Viewcart />} />
                   <Route path="/contact" element={<Contact />} />
               </Routes>
 

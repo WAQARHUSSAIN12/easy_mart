@@ -18,8 +18,14 @@ let CartItemSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    clientToken: {
+        type: String,
+        required: true
+    },
+    user:[{ type: Schema.Types.ObjectId, ref: 'User' }],
     product:[{ type: Schema.Types.ObjectId, ref: 'Product' }],
     cart:[{ type: Schema.Types.ObjectId, ref: 'Cart' }],
 })
+
 const CartItem = mongoose.model('CartItem', CartItemSchema);
 module.exports = CartItem;

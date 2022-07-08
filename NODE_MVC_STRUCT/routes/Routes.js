@@ -27,6 +27,14 @@ const {
   loginUser,
 } = require("../controllers/UserController");
 
+
+
+const {
+  addToCart,
+  getAllCartItems,
+  removeCartItem,
+} = require("../controllers/CartController");
+
 const router = express.Router();
 
 // Routes For Category
@@ -35,7 +43,6 @@ router.get("/getCategories",getCategories);
 router.post("/getCategory",getCategory); 
 router.post("/updateCategory",updateCategory); 
 router.post("/deleteCategory",deleteCategory);
-
 
 //Routes For Product
 const type = uploadProductImage();
@@ -53,5 +60,9 @@ router.post("/updateUser",updateUser);
 router.post("/deleteUser",deleteUser);
 router.post("/login", loginUser);
 
-
+//Route For Cart 
+router.post("/addToCart", addToCart);
+router.get("/getAllCartItems", getAllCartItems);
+router.post("/removeCartItem", removeCartItem);
+ 
 module.exports = router;

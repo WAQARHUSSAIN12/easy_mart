@@ -1,14 +1,40 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component, useEffect, useState, useRef } from 'react'
 import axios from "axios";
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import {getAllCartItems} from "../frontend/partial/header";
 const Swal = require('sweetalert2');
-
 
 export default function Product() {
 
     const [products, getProducts] = useState([]);
+    const [product, getProduct] = useState([]);
+    const navigate = useNavigate();
+
+    const [productId, setproductId] = useState();
+    const [productPrice, setproductPrice] = useState();
+    const [userId, setuserId] = useState();
+
+    function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * 
+     charactersLength));
+       }
+       return result;
+    }
+
+    const userToken = ()=> {
+            const isTokenGenetared =  localStorage.getItem("ClintToken"); 
+            if (!isTokenGenetared) {
+                localStorage.setItem('ClintToken',makeid(5));
+            }
+    }
 
     useEffect(() => {
+        userToken();
         getAllProducts();
     }, []);
 
@@ -17,11 +43,36 @@ export default function Product() {
             .then(res => {
                 const products = res.data;
                 getProducts(products)
-                console.log(products);
             })
     }
+    //ADD TO CART PRODUCT
+    const addToCart = (e) => {
+        let id = e.target.value;
+        addToCartRequest(id)
+    }
 
-
+    // ADD TO CART REQUEST
+    const addToCartRequest = (id) => {
+        const productData = {
+          productId: id,
+          clientToken:localStorage.getItem("ClintToken")
+        }
+        axios({
+          method: 'post',
+          url: 'http://localhost:4111/addToCart',
+          data: productData,
+        })
+          .then(res => {
+            if (res.data.message) {
+                Swal.fire(
+                  'Success',
+                  'Product added to cart',
+                  'success'
+                );
+              navigate("/");
+              }
+           })
+    }
     return (
         <div>
             <div className="breadcrumbs">
@@ -86,6 +137,8 @@ export default function Product() {
 
                             </div>
                         </div>
+                    <div>
+                </div>
                         <div className="col-lg-9 col-md-8 col-12">
                             <div className="row">
                                 <div className="col-12">
@@ -118,11 +171,9 @@ export default function Product() {
                                 </div>
                             </div>
                             <div className="row">
-
                             {
                             products.map((product,i) =>
-
-                                            <div className="col-lg-3 col-md-3 col-12">
+                                            <div className="col-lg-3 col-md-3 col-12">                                         
                                             <div className="single-product">
                                                 <div className="product-img">
                                                     <a href="product-details.html">
@@ -134,7 +185,8 @@ export default function Product() {
                                                             <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i className=" ti-eye" /><span>Quick Shop</span></a>
                                                         </div>
                                                         <div className="product-action-2">
-                                                            <a title="Add to cart" href="#">Add to cart</a>
+                                                 
+                                                            <button value={product._id} onClick={addToCart} title="Add to cart" className='btn btn-info' >Add to cart</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -142,7 +194,7 @@ export default function Product() {
                                                     <h3><a href="product-details.html">{product.name}</a></h3>
                                                     <h3><a href="product-details.html">{product.category ? product.category[0].name : "" }</a></h3>
                                                     <div className="product-price">
-                                                        <span>$ {product.Price} </span>
+                                                        <span>RS {product.Price} </span>
                                                     </div>
                                                 </div>
                                             </div>

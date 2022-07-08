@@ -2,173 +2,64 @@ const mongoose = require('mongoose');
 const UsersModel = require("../models/User");
 const Category = require("../models/Category");
 const Product = require("../models/Product");
-//For Register Page
-const registerView = (req, res) => {
-  res.render("frontend/register", {});
-};
+const CartItem = require("../models/CartItem");
 
-//Post Request for Register
+const addToCart = (req,res) =>{
+  console.log(req.body);
+  const productId = req.body.productId;
+  Product.findOne({_id: productId})
+  .then(product => {
+    //console.log(product);
+    var cartObj = new CartItem({ 
+        Description:"TEST",
+        UnitPrice:product.Price,
+        TotalPrice:product.Price,
+        clientToken:req.body.clientToken,
+        product :[productId]
+    });
+    cartObj.save((err, doc) => {
+          if (!err){
 
-const registerUser = (req, res) => {
-//   const { name, email, location, password, confirm } = req.body;
+            res.send({ message : "Product added To Cart Successfully"});
+          }
+          else{
+            res.send({ message : 'Error during record insertion : ' + err});
+          }
+    });
+  })
+  .catch(err => {
+      res.status(500).send({ message : err.message || "Error Occurred while retriving user information" });
+  })
+}
 
-//   if (!name || !email || !password || !confirm) {
-//     console.log("Fill empty fields");
-//   }
-
-//   Confirm Passwords
-//   if (password !== confirm) {
-//     console.log("Password must match");
-//   } else {
-//     //Validation
-//     User.findOne({ email: email }).then((user) => {
-//       if (user) {
-//         console.log("email exists");
-//         res.render("register", {
-//           name,
-//           email,
-//           password,
-//           confirm,
-//         });
-//       } else {
-//         //Validation
-//         const newUser = new User({
-//           name,
-//           email,
-//           location,
-//           password,
-//         });
-//         //Password Hashing
-//         bcrypt.genSalt(10, (err, salt) =>
-//           bcrypt.hash(newUser.password, salt, (err, hash) => {
-//             if (err) throw err;
-
-//             newUser.password = hash;
-//             newUser
-//               .save()
-//               .then(res.redirect("/login"))
-//               .catch((err) => console.log(err));
-//           })
-//         );
-//       }
-//     });
-//   }
-};
-
-// For View
-const loginView = (req, res) => {
-  res.render("frontend/login", {});
-};
-
-const getUsers = (req,res)=>{
-  UsersModel.find()
-  .then(user => {
-    res.send(user)
-
+// GET ALL ITEM FROM CART WITH PRODUCT DETAIL
+const getAllCartItems = (req,res) =>{
+  CartItem.find().populate("product","name photoUrl")
+  .then(cart => {
+    res.send(cart)
   })
   .catch(err => {
       res.status(500).send({ message : err.message || "Error Occurred while retriving user information" })
   })
 }
 
-const insertUser = (req,res)=>{
+// REMOVE PRODUCT FROM CART BY ID AND CLIENT TOKEN ID  FUNCTION
+const removeCartItem = (req,res) =>{
+  const id = req.body.cartId;
+  const clientToken = req.body.clientToken;
 
-  var userDetails = new UsersModel({
-    name: "Nadeem Khan",
-    email: "nadeem@gmail.com",
-    password: "1234",
-
-  });
-   
-  userDetails.save((err, doc) => {
-        if (!err){
-          console.log('User added successfully!');
-          //req.flash('success', 'User added successfully!');
-        }
-        else{
-          console.log('Error during record insertion : ' + err);
-        }
-           
+  CartItem.deleteOne({_id:id,clientToken:clientToken}, function(err, result){
+    if(err){
+      res.send({ message : 'Error during record deletion : ' + err});
+    }
+    else{
+      res.send({ message : "Item removed successfully"});
+    }
   });
 }
-
-const insertCategory = (req,res)=>{
-
-  var categoryDetails = new Category({
-    name: "Electronic",
-  });
-
-  categoryDetails.save((err, doc) => {
-        if (!err){
-          console.log('Category added successfully!');
-          res.send(doc);
-        }
-        else{
-          console.log('Error during record insertion : ' + err);
-        }
-  });
-}
-
-const insertProduct = (req,res)=>{
-
-  var productDetails = new Product({
-    name: "Infinix",
-    desc:"test Karo",
-    qty:10,
-    Price:24000,
-    photoUrl:"urlurlurl",
-    isActive:true,
-    category: ["62b417b13117ca5fc5db6b89"],
-  });
-
-  productDetails.save((err, doc) => {
-        if (!err){
-          console.log('Product added successfully!');
-          //req.flash('success', 'User added successfully!');
-        }
-        else{
-          console.log('Error during record insertion : ' + err);
-        }
-  });
-}
-
-const getProduct = (req,res)=>{
-  Product.find().populate("category","name")
-            .then(product => {
-              res.send(product)
-            })
-            .catch(err => {
-                res.status(500).send({ message : err.message || "Error Occurred while retriving user information" })
-            })
-}
-
-// Logging in Function
-const loginUser = (req, res) => {
-//   const { email, password } = req.body;
-//   //Required
-//   if (!email || !password) {
-//     console.log("Please fill in all the fields");
-//     res.render("login", {
-//       email,
-//       password,
-//     });
-//   } else {
-//     passport.authenticate("local", {
-//       successRedirect: "/dashboard",
-//       failureRedirect: "/login",
-//       failureFlash: true,
-//     })(req, res);
-//   }
-};
 
 module.exports = {
-  registerView,
-  loginView,
-  registerUser,
-  loginUser,
-  getUsers,
-  insertUser,
-  insertCategory,
-  insertProduct,
-  getProduct,
+  addToCart,
+  getAllCartItems,
+  removeCartItem,
 };

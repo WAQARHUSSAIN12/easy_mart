@@ -1,8 +1,23 @@
-import React, { Component } from 'react'
+import React, { Component,useEffect,useState } from 'react'
+import axios from "axios";
 import { Route, Link,NavLink,Routes, BrowserRouter as Router } from 'react-router-dom' 
-export default class Header extends Component {
-  render() {
-    return (
+export default function Header(){
+
+const  [cartItems,getcartItems] = useState([]);
+const  [totalAmout,gettotalAmount] = useState([]);
+    useEffect(()=>{
+        getAllCartItems();
+    },[]);
+
+  const getAllCartItems = () => {
+      axios.get(`http://localhost:4111/getAllCartItems`)
+      .then(res => {
+        const cartItems = res.data;
+        getcartItems(cartItems)
+        console.log(cartItems);
+      })
+}
+return (
     <header className="header shop">
         {/* Topbar */}
         <div className="topbar">
@@ -71,26 +86,27 @@ export default class Header extends Component {
                     <div className="shopping-item">
                         <div className="dropdown-cart-header">
                         <span>2 Items</span>
-                        <a href="#">View Cart</a>
+                        <NavLink  to={"/viewcart"} >View Cart</NavLink>
                         </div>
                         <ul className="shopping-list">
-                        <li>
-                            <a href="#" className="remove" title="Remove this item"><i className="fa fa-remove" /></a>
-                            <a className="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#" /></a>
-                            <h4><a href="#">Woman Ring</a></h4>
-                            <p className="quantity">1x - <span className="amount">$99.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" className="remove" title="Remove this item"><i className="fa fa-remove" /></a>
-                            <a className="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#" /></a>
-                            <h4><a href="#">Woman Necklace</a></h4>
-                            <p className="quantity">1x - <span className="amount">$35.00</span></p>
-                        </li>
+                        {
+                            cartItems.map((product,i) =>
+                                <li>
+                                    <a className="cart-img" href="#">
+                                        <img style={{width: "70px", height:"70px", minHeight:"70px" }} src={`http://localhost:4111/public/${product.product[0].photoUrl}`} alt="#" />
+                                    </a>
+                                    <h4>
+                                        <a href="#">{ product.product[0].name}</a>
+                                    </h4>
+                                    <p className="quantity"> <span className="amount">PKR {product.UnitPrice}</span></p>
+                                </li>
+                            ) 
+                        }
                         </ul>
                         <div className="bottom">
                         <div className="total">
                             <span>Total</span>
-                            <span className="total-amount">$134.00</span>
+                            <span className="total-amount">PKR </span>
                         </div>
                         <a href="checkout.html" className="btn animate">Checkout</a>
                         </div>
@@ -134,4 +150,5 @@ export default class Header extends Component {
     </header>
     )
   }
-}
+
+ 

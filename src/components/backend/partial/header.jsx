@@ -163,10 +163,6 @@ export default function Header  () {
                         </li>
                         </ul>
                     </li>
-                    <li className="sidebar-item">
-                        <NavLink className="sidebar-link waves-effect waves-dark sidebar-link" to="/admin/report" aria-expanded="false"><i className="mdi mdi-blur-linear" /><span className="hide-menu">Reports</span></NavLink>
-                    </li>
-                   
                     </ul>
                 </nav>
                 {/* End Sidebar navigation */}

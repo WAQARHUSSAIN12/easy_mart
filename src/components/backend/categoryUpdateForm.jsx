@@ -28,6 +28,7 @@ const getCategoryById = () => {
         console.log(name);
       })
   }
+  
   function handleSubmit(event) {
     event.preventDefault();
     const category = {
@@ -40,8 +41,8 @@ const getCategoryById = () => {
       data: category,
     })
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        // console.log(res);
+        // console.log(res.data);
         if (res.data.message) {
           Swal.fire(
             'Success',

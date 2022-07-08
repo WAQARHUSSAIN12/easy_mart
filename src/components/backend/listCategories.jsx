@@ -39,7 +39,7 @@ const deleteCategory = (e) => {
 
         }
     });
-
+    
 }
 // DELETE BY ID REQUEST
 const deleteById = (id) => {
