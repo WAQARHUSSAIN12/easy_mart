@@ -25,19 +25,16 @@ export default function Product() {
        }
        return result;
     }
-
     const userToken = ()=> {
             const isTokenGenetared =  localStorage.getItem("ClintToken"); 
             if (!isTokenGenetared) {
                 localStorage.setItem('ClintToken',makeid(5));
             }
     }
-
     useEffect(() => {
         userToken();
         getAllProducts();
     }, []);
-
     const getAllProducts = () => {
         axios.get(`http://localhost:4111/getProducts`)
             .then(res => {
@@ -73,6 +70,7 @@ export default function Product() {
               }
            })
     }
+    
     return (
         <div>
             <div className="breadcrumbs">
@@ -185,7 +183,6 @@ export default function Product() {
                                                             <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i className=" ti-eye" /><span>Quick Shop</span></a>
                                                         </div>
                                                         <div className="product-action-2">
-                                                 
                                                             <button value={product._id} onClick={addToCart} title="Add to cart" className='btn btn-info' >Add to cart</button>
                                                         </div>
                                                     </div>

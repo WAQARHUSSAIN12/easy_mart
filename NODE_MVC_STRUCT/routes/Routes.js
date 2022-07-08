@@ -25,6 +25,7 @@ const {
   updateUser,
   deleteUser,
   loginUser,
+  insertMessage,
 } = require("../controllers/UserController");
 
 
@@ -59,6 +60,7 @@ router.post("/getUser",getUser);
 router.post("/updateUser",updateUser);
 router.post("/deleteUser",deleteUser);
 router.post("/login", loginUser);
+router.post("/insertMessage", insertMessage);
 
 //Route For Cart 
 router.post("/addToCart", addToCart);

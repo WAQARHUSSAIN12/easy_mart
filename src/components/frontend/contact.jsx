@@ -1,6 +1,47 @@
-import React, { Component } from 'react'
+import React, { Component,useEffect,useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import axios from "axios"; 
+const Swal = require('sweetalert2')
 
 export default function Contact(){
+
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [subject, setSubject] = useState();
+  const [phone, setPhone] = useState();
+  const [message, setMessage] = useState();
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const messageData = {
+      name: name,
+      email: email,
+      subject:subject,
+      phone:phone,
+      message:message
+    }
+    //alert(user.name + " " + user.email + " " + user.address + " " + user.devliveryAddress + " " + user.userType + " " + password);
+    //axios.get('http://localhost:4111/createCategory', 
+    
+    axios({
+      method:'post',
+      url: 'http://localhost:4111/insertMessage',
+      data: messageData,
+    })
+      .then(res=>{
+        console.log(res);
+        console.log(res.data);
+        if(res.data.message){
+          Swal.fire(
+            'Thank You For Contact',
+            'We will response you soon!' ,
+            'success'
+          );
+        }
+        //window.location = "/listCategories" //This line of code will redirect you once the submission is succeed
+      })
+  }
+
 return (
 <div>
   {/* Breadcrumbs */}
@@ -30,36 +71,36 @@ return (
                 <h4>Get in touch</h4>
                 <h3>Write us a message</h3>
               </div>
-              <form className="form" method="post" action="mail/mail.php">
+              <form className="form" onSubmit = { handleSubmit }  >
                 <div className="row">
                   <div className="col-lg-6 col-12">
                     <div className="form-group">
                       <label>Your Name<span>*</span></label>
-                      <input name="name" type="text" placeholder />
+                      <input name="name" onChange={e => setName(e.target.value)} type="text" placeholder />
                     </div>
                   </div>
                   <div className="col-lg-6 col-12">
                     <div className="form-group">
                       <label>Your Subjects<span>*</span></label>
-                      <input name="subject" type="text" placeholder />
+                      <input name="subject" onChange={e => setSubject(e.target.value)} type="text" placeholder />
                     </div>
                   </div>
                   <div className="col-lg-6 col-12">
                     <div className="form-group">
                       <label>Your Email<span>*</span></label>
-                      <input name="email" type="email" placeholder />
+                      <input name="email" type="email" onChange={e => setEmail(e.target.value)}  placeholder />
                     </div>	
                   </div>
                   <div className="col-lg-6 col-12">
                     <div className="form-group">
                       <label>Your Phone<span>*</span></label>
-                      <input name="company_name" type="text" placeholder />
+                      <input name="phone" type="text" onChange={e => setPhone(e.target.value)}  placeholder />
                     </div>	
                   </div>
                   <div className="col-12">
                     <div className="form-group message">
                       <label>your message<span>*</span></label>
-                      <textarea name="message" placeholder defaultValue={""} />
+                      <textarea name="message" onChange={e => setMessage(e.target.value)}   placeholder defaultValue={""} />
                     </div>
                   </div>
                   <div className="col-12">

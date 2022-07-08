@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const UsersModel = require("../models/User");
 const Category = require("../models/Category");
 const Product = require("../models/Product");
+const Message = require("../models/Message");
 
 // GET ALL USER FUNCTION
 const getUsers = (req,res)=>{
@@ -93,6 +94,26 @@ const getUser = (req, res) => {
   })
 }
 
+//INSERT MESSAGE HERE
+const insertMessage = (req,res)=>{
+  //console.log(req.body);
+  var MessageDetails = new Message({
+    name: req.body.name ,
+    subject: req.body.subject,
+    email:   req.body.email ,
+    phone:  req.body.phone ,
+    message:req.body.message,
+  });
+  MessageDetails.save((err, doc) => {
+        if (!err){
+          res.send({ message : "Message Added successfully"});
+        }
+        else{
+          res.send({ message : 'Error during record insertion : ' + err});
+        }
+  });
+}
+
 module.exports = {
   insertUser,
   getUsers,
@@ -100,4 +121,5 @@ module.exports = {
   updateUser,
   deleteUser,
   loginUser,
+  insertMessage,
 };

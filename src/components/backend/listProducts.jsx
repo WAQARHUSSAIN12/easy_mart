@@ -2,11 +2,8 @@ import React, { Component,useEffect,useState } from 'react'
 import axios from "axios"; 
 import { NavLink } from 'react-router-dom';
 const Swal = require('sweetalert2');
-
 export default function ListProducts() {
-
-  const  [products,getProducts] = useState([]);
- 
+  const  [products,getProducts] = useState([]); 
   useEffect(()=>{
     getAllProducts();
   },[]);
