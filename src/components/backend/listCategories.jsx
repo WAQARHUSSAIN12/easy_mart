@@ -27,7 +27,6 @@ const deleteCategory = (e) => {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert Category!",
-
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -83,7 +82,7 @@ const deleteById = (id) => {
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item"><a href="#">Home</a></li>
                     <li className="breadcrumb-item active" aria-current="page">
-                      Library
+                      Categories
                     </li>
                   </ol>
                 </nav>

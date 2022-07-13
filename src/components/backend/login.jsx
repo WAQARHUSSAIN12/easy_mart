@@ -30,7 +30,10 @@ export default function Login() {
            // localStorage.setItem('name',res.data[0].name);
             isLoggedIn =  localStorage.getItem("LoginToken"); 
             if (isLoggedIn) {
-                navigate("/admin/dashboard");
+                 
+               { window.location.replace("http://localhost:3000/admin/dashboard") }
+                //navigate("/admin/dashboard");
+              
             }
         }else{
           Swal.fire(

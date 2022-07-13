@@ -6,8 +6,9 @@ const Swal = require('sweetalert2');
 
 export default function Viewcart() {
 
+let totalAmount;
 const  [cartItems,getcartItems] = useState([]);
-const  [totalAmout,gettotalAmount] = useState([]);
+const  [totalAmout,settotalAmount] = useState([]);
 const navigate = useNavigate();
     useEffect(()=>{
         getAllCartItems();
@@ -86,6 +87,8 @@ return (
             <tbody>
             {
              cartItems.map((product,i) =>
+             
+
               <tr>
                 <td className="image" data-title="No">
                     <img style={{width: "100px", height:"100px", minHeight:"100px" }} src={`http://localhost:4111/public/${product.product[0].photoUrl}`} alt="#" />
@@ -98,7 +101,7 @@ return (
                 <td className="total-amount" data-title="Total"><span>PKR {product.UnitPrice}</span></td>
                 <td className="action" data-title="Remove">
                     <button value={product._id} onClick={removeItem} >
-                    REMOVE    <i className="ti-trash remove-icon" /> 
+                    REMOVE<i className="ti-trash remove-icon" /> 
                     </button>
                 </td>
               </tr>
@@ -129,11 +132,10 @@ return (
                   <ul>
                     <li>Cart Subtotal<span>$330.00</span></li>
                     <li>Shipping<span>Free</span></li>
-                    <li>You Save<span>$20.00</span></li>
                     <li className="last">You Pay<span>$310.00</span></li>
                   </ul>
                   <div className="button5">
-                    <a href="#" className="btn">Checkout</a>
+                    <a href="#" className="btn">checkout cash on delivery </a>
                     <NavLink to="/" > Continue shopping </NavLink>
                   </div>
                 </div>

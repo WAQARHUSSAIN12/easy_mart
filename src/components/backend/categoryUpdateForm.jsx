@@ -67,7 +67,7 @@ const getCategoryById = () => {
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item"><a href="#"></a></li>
                     <li className="breadcrumb-item active" aria-current="page">
-                      Library
+                      Category
                     </li>
                   </ol>
                 </nav>

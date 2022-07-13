@@ -196,7 +196,6 @@ export default function Product() {
                                                 </div>
                                             </div>
                                         </div>
-
                                 // <tr key={product.id}>
                                 // <td> { ++i }</td>
                                 // <td>{product.name}</td>
@@ -213,9 +212,7 @@ export default function Product() {
                                 )
                             }
 
-                                
-
-                            </div>
+                        </div>
 
                         </div>
                     </div>
